@@ -1,0 +1,89 @@
+{
+  "name": "codetrackr",
+  "displayName": "CodeTrackr",
+  "description": "Track coding time in VS Code and send it to your CodeTrackr backend (MongoDB Atlas).",
+  "publisher": "yourname",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:codetrackr.start",
+    "onCommand:codetrackr.stop",
+    "onCommand:codetrackr.flushNow"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codetrackr.start",
+        "title": "CodeTrackr: Start Tracking",
+        "category": "CodeTrackr"
+      },
+      {
+        "command": "codetrackr.stop",
+        "title": "CodeTrackr: Stop Tracking",
+        "category": "CodeTrackr"
+      },
+      {
+        "command": "codetrackr.flushNow",
+        "title": "CodeTrackr: Flush Now",
+        "category": "CodeTrackr"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "CodeTrackr Settings",
+      "properties": {
+        "codetrackr.apiBase": {
+          "type": "string",
+          "default": "http://127.0.0.1:5050",
+          "description": "Your backend API base URL (e.g., http://127.0.0.1:5050)."
+        },
+        "codetrackr.userId": {
+          "type": "string",
+          "default": "",
+          "description": "Optional: override user id (default is your OS username)."
+        },
+        "codetrackr.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Optional API key sent as 'x-api-key' header."
+        },
+        "codetrackr.flushIntervalSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "description": "How often the timer ticks (in seconds)."
+        },
+        "codetrackr.minFlushMinutes": {
+          "type": "number",
+          "default": 0.5,
+          "minimum": 0.1,
+          "description": "Minimum minutes before a record is sent."
+        }
+      }
+    }
+  },
+  "keywords": [
+    "code",
+    "productivity",
+    "tracking",
+    "mongodb",
+    "atlas",
+    "vscode"
+  ],
+  "scripts": {
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0"
+  },
+  "dependencies": {
+    "axios": "^1.13.2"
+  }
+}
